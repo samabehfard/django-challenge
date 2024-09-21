@@ -1,3 +1,6 @@
+from Stadium.dao.stadium_dao import StadiumDao
+
+
 class StadiumLogic:
     def __init__(self):
         self.stadium_dao = StadiumDao()

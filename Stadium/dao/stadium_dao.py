@@ -13,3 +13,6 @@ class StadiumDao:
         address=address,
         name=name,
         )
+    def get_all_stadiums(self):
+        stadiums = Stadium.objects.all()
+        return stadiums
