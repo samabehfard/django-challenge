@@ -14,15 +14,19 @@ class TicketListView(APIView):
         self.ticket_logic = TicketLogic()
 
     def post(self, request):
-        serializer = TicketSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        seat_codes = serializer.data.get("seat_codes")
-        match_id = serializer.data.get("match_id")
-        user = request.user
-        ticket_codes = self.ticket_logic.buy_ticket(
-            seat_codes=seat_codes,
-            match_id=match_id,
-            user=user,
-        )
-        return Response({'ticket_codes': ticket_codes}, status=status.HTTP_201_CREATED)
+        try:
+            serializer = TicketSerializer(data=request.data)
+            if not serializer.is_valid():
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            seat_codes = serializer.data.get("seat_codes")
+            match_id = serializer.data.get("match_id")
+            user = request.user
+            ticket_codes = self.ticket_logic.buy_ticket(
+                seat_codes=seat_codes,
+                match_id=match_id,
+                user=user,
+            )
+            return Response({'ticket_codes': ticket_codes}, status=status.HTTP_200_OK)
+        except Exception as error:
+            # error.args[0] should be log
+            return Response({'detail': 'Internal Error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

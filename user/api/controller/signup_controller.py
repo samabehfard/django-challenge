@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from user.api.serializer.signup_serializer import UserSignUpSerializer
-from user.errors import DuplicateIdentityNumber, DuplicateUserName
+from user.errors import DuplicateUserNameException, DuplicateIdentityNumberException
 from user.logic.user_authentication_logic import UserAuthenticationLogic
 
 
@@ -35,11 +35,11 @@ class SignUpView(APIView):
             return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
         except HttpResponseBadRequest:
             return Response("bad request", status=status.HTTP_400_BAD_REQUEST)
-        except DuplicateIdentityNumber:
+        except DuplicateIdentityNumberException:
             # we should log this but we should not show our existed identity numbers to other users
             return Response("bad request", status=status.HTTP_400_BAD_REQUEST)
 
-        except DuplicateUserName:
+        except DuplicateUserNameException:
             return Response("duplicate username", status=status.HTTP_409_CONFLICT)
 
         except:

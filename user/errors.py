@@ -1,4 +1,4 @@
-class DuplicateUserName(Exception):
+class DuplicateUserNameException(Exception):
     ...
-class DuplicateIdentityNumber(Exception):
+class DuplicateIdentityNumberException(Exception):
     ...

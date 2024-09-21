@@ -14,23 +14,31 @@ class MatchView(APIView):
         self.match_logic = MatchLogic()
 
     def post(self, request):
-        serializer = MatchSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        home_matches = serializer.data.get("home_matches")
-        away_matches = serializer.data.get("away_matches")
-        date = serializer.data.get("date")
-        time = serializer.data.get("time")
-        default_price = serializer.data.get("default_price")
-        self.match_logic.add_match(
-            home_matches=home_matches,
-            away_matches=away_matches,
-            date=date,
-            time=time,
-            default_price=default_price
-        )
-        return Response({'message': 'Match defined successfully'}, status=status.HTTP_201_CREATED)
+        try:
+            serializer = MatchSerializer(data=request.data)
+            if not serializer.is_valid():
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            home_matches = serializer.data.get("home_matches")
+            away_matches = serializer.data.get("away_matches")
+            date = serializer.data.get("date")
+            time = serializer.data.get("time")
+            default_price = serializer.data.get("default_price")
+            self.match_logic.add_match(
+                home_matches=home_matches,
+                away_matches=away_matches,
+                date=date,
+                time=time,
+                default_price=default_price
+            )
+            return Response({'message': 'Match defined successfully'}, status=status.HTTP_201_CREATED)
+        except Exception as error:
+            # error.args[0] should be log
+            return Response({'detail': 'Internal Error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def get(self, request):
-        matches = self.match_logic.get_all_matches()
-        return Response({'matches': matches}, status=status.HTTP_201_CREATED)
+        try:
+            matches = self.match_logic.get_all_matches()
+            return Response({'matches': matches}, status=status.HTTP_201_CREATED)
+        except Exception as error:
+            # error.args[0] should be log
+            return Response({'detail': 'Internal Error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
