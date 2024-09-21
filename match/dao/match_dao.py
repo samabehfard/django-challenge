@@ -21,3 +21,5 @@ class MatchDao:
     def get_all_matches(self):
         matches = Match.objects.all()
         return matches
+    def get_match_by_id(self,match_id):
+        return Match.objects.filter(id=match_id).first()

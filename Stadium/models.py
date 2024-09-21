@@ -14,6 +14,9 @@ class Seat(models.Model):
     code = models.CharField(max_length=10)
     stadium = models.ForeignKey(Stadium, on_delete=models.CASCADE)
 
+    class meta:
+        unique_together = (('code', 'stadium'),)
+
     def __str__(self):
         return f"Seat {self.code} in {self.stadium}"
 
