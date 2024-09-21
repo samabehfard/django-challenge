@@ -8,11 +8,12 @@ class StadiumDao:
             address,
             name,
     ):
-        Stadium.objects.create(
+        stadium = Stadium.objects.create(
         potential=potential,
         address=address,
         name=name,
         )
+        return stadium
     def get_all_stadiums(self):
         stadiums = Stadium.objects.all()
         return stadiums
