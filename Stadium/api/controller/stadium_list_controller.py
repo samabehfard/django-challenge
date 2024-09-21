@@ -48,7 +48,7 @@ class StadiumListView(APIView):
             status.HTTP_200_OK: StadiumGetListSerializer,
             status.HTTP_500_INTERNAL_SERVER_ERROR: CommonSerializer
         },
-        description="Endpoint to show all submited stadiums."
+        description="Endpoint to show all submitted stadiums."
     )
     def get(self, request):
         try:
