@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Stadium(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,unique=True)
     address = models.CharField(max_length=200)
 
     def __str__(self):
