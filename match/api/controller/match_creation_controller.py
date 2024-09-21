@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from cinamaa_ticket.common.common_serializer import CommonSerializer
+from common.common_serializer import CommonSerializer
 from match.api.serializer.match_serializer import MatchCreationSerializer, MatchGetListSerializer
 from match.logic.match_logic import MatchLogic
 
