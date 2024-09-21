@@ -10,18 +10,11 @@ class Stadium(models.Model):
         return self.name
 
 
-class PlayGround(models.Model):
+class Seat(models.Model):
+    code = models.CharField(max_length=10)
     stadium = models.ForeignKey(Stadium, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"PlayGround at {self.stadium.name}"
-
-
-class Seat(models.Model):
-    code = models.CharField(max_length=10)
-    playground = models.ForeignKey(PlayGround, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Seat {self.code} in {self.playground}"
+        return f"Seat {self.code} in {self.stadium}"
 
 
