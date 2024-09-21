@@ -4,8 +4,8 @@ from Stadium.models import Stadium
 
 
 class Match(models.Model):
-    home_matches = models.CharField()
-    away_matches = models.CharField()
+    home_matches = models.CharField(max_length=200)
+    away_matches = models.CharField(max_length=200)
     date = models.DateField()
     time = models.TimeField()
     default_price = models.DecimalField(max_digits=10, decimal_places=2)

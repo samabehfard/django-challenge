@@ -1,8 +1,8 @@
-from django.contrib.auth.models import User
 from django.db import models
 
 from Stadium.models import Seat
 from match.models import Match
+from user.models import User
 
 
 class Ticket(models.Model):

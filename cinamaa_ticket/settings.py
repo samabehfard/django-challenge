@@ -141,4 +141,4 @@ SPECTACULAR_SETTINGS = {
     # Optional other settings
 }
 
-AUTH_USER_MODEL = "user.models.User"
+AUTH_USER_MODEL = "user.User"
