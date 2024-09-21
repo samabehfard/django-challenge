@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ticket',
     'user',
-    'Stadium'
+    'Stadium',
+    'match'
 ]
 
 MIDDLEWARE = [
