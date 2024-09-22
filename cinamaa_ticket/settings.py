@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'drf_spectacular',
     'ticket',
     'user',
     'Stadium',
@@ -120,8 +123,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-
+STATIC_URL = 'templates/'
+STATIC_ROOT = 'templates'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -138,7 +141,7 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'Stadium Booking API',
     'DESCRIPTION': 'API documentation for the stadium booking system.',
     'VERSION': '1.0.0',
-    # Optional other settings
+    'SWAGGER_UI_DIST': 'https://cdn.jsdelivr.net/npm/swagger-ui-dist@4.11.1',
 }
 
 AUTH_USER_MODEL = "user.User"

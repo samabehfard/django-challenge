@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 class Stadium(models.Model):
     name = models.CharField(max_length=100,unique=True)
     address = models.CharField(max_length=200)
+    potential = models.IntegerField(default=100)
 
     def __str__(self):
         return self.name

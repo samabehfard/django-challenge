@@ -9,4 +9,4 @@ class TicketDao:
         return Ticket.objects.filter(match_id=match_id, seat__code__in=seat_codes).all()
 
     def get_back_tickets(self, seat_codes, match_id):
-        Ticket.objects.filter(match_id=match_id, seat__code__in=seat_codes).delete()
+        Ticket.objects.filter(match_id=match_id, code__in=seat_codes).delete()

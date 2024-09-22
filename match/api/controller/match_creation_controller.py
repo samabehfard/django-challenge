@@ -32,6 +32,7 @@ class MatchView(APIView):
                 return Response({"detail": "bad request"}, status=status.HTTP_400_BAD_REQUEST)
             home_matches = serializer.data.get("home_matches")
             away_matches = serializer.data.get("away_matches")
+            stadium_id = serializer.data.get("stadium_id")
             date = serializer.data.get("date")
             time = serializer.data.get("time")
             default_price = serializer.data.get("default_price")
@@ -40,7 +41,8 @@ class MatchView(APIView):
                 away_matches=away_matches,
                 date=date,
                 time=time,
-                default_price=default_price
+                default_price=default_price,
+                stadium_id=stadium_id
             )
             return Response({'detail': 'Match defined successfully'}, status=status.HTTP_200_OK)
         except Exception as error:

@@ -23,7 +23,7 @@ class SignInView(APIView):
     )
     def post(self, request):
         try:
-            serializer = UserLoginSerializer(request.data)
+            serializer = UserLoginSerializer(data=request.data)
             if not serializer.is_valid():
                 raise BadRequestException("bad request")
 

@@ -1,16 +1,16 @@
-from django.contrib.auth.models import User
+from user.models import User
 
 
 class UserAuthenticationDao:
     def is_username_duplicate(self, username):
-        user = User.objects.filter(username=username)
+        user = User.objects.filter(username=username).first()
         if user:
             return True
         else:
             return False
 
     def is_identity_number_duplicate(self, identity_number):
-        user = User.objects.filter(identity_number=identity_number)
+        user = User.objects.filter(identity_number=identity_number).first()
         if user:
             return True
         else:
@@ -25,10 +25,13 @@ class UserAuthenticationDao:
             phone_number,
             password
     ):
-        User.objects.create(
+        user = User.objects.create(
             username=username,
             name=name,
             family_name=family_name,
             identity_number=identity_number,
             phone_number=phone_number,
             password=password)
+
+        user.set_password(password)
+        user.save()

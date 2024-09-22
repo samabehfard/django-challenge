@@ -1,23 +1,56 @@
-# django-challenge
+
+# پروژه مدیریت استادیوم
+
+## ساختار کد
+
+در این پروژه، ساختار کد به گونه‌ای طراحی شده است که از سه لایه اصلی استفاده می‌شود:
+
+1. **کنترلر (Controller)**:
+   - در هر اپ، درخواست‌های ورودی (Request) توسط سریالایزر (Serializer) پردازش می‌شوند.
+   - درخواست‌ها و نتایج سریالایز شده به فانکشن‌های مربوطه در فایل لاجیک (Logic) ارسال می‌شوند.
+
+2. **لایه لاجیک (Logic)**:
+   - در این لایه، منطق اصلی برنامه بدون هیچگونه دستکاری دیتابیس پیاده‌سازی می‌شود.
+   - هرگونه نیازی به تغییر یا دسترسی به دیتابیس به لایه DAO واگذار می‌شود.
+
+3. **لایه DAO (Data Access Object)**:
+   - تمامی دستکاری‌ها و ارتباطات با دیتابیس در این فایل انجام می‌شود.
+   - هر زمان که نیاز به دسترسی یا تغییر در دیتابیس باشد، از طریق این لایه انجام می‌گیرد تا لایه لاجیک از دیتابیس جدا بماند.
+
+## جزئیات پروژه
+
+### ایجاد استادیوم
+در این پروژه باید دسترسی‌های ادمین برای ایجاد استادیوم پیاده‌سازی می‌شد، اما به دلیل محدودیت زمانی این بخش کامل نشده است.
+
+### استفاده از سریالایزر
+- دلیل استفاده از سریالایزر در خروجی کد این است که:
+  - اطمینان حاصل شود که اطلاعات ارسالی فقط شامل موارد مورد نیاز است و هیچ داده اضافه‌ای ارسال نمی‌شود.
+  - تمام اطلاعات مورد نیاز برای فرآیندها ارسال شود.
+  
+### مستندسازی Swagger
+- برای مستندسازی API‌ها از Swagger استفاده شده است.
+- یو آر ال Swagger در دسترس است و تمامی اقدامات و تست‌ها از طریق این رابط کاربری خوانا و قابل انجام هستند.
+
+### مدیریت ورود و ثبت‌نام کاربران
+- برای پیاده‌سازی سیستم احراز هویت (ورود و ثبت‌نام کاربران) از **`rest_framework.authtoken`** استفاده شده است.
+  - این روش ساده‌ترین شکل احراز هویت را فراهم می‌کند و به سادگی می‌تواند توکن‌های دسترسی را برای کاربران ایجاد و مدیریت کند.
+
+### استفاده از Swagger
+- از Swagger برای تست APIها استفاده شده است که به راحتی امکان بررسی و اجرای تمامی درخواست‌ها و اقدامات مختلف را می‌دهد.
+
+### نحوه استفاده
+1. **راه‌اندازی و تست APIها**: می‌توانید از Swagger استفاده کنید که در آدرس تعیین شده مستندات خوانا و قابل اجرا است.
+2. **احراز هویت**: من از ساده‌ترین راه یعنی restframework.authtoken استفاده کردم برای ثبتنام و ورود
+
+## باگ‌های فعلی
+
+- کاربر ثبتنام کرده می‌تونه مچ و استادیوم هم ایجاد کنه که قطعا باگه ولی وقت نشد سلسله مراتب برای یوزر بذارم
+- تست ندارد! ( خیلی مهم هست و متاسفانه مخصوصا بابت اینکه خودم مطمئن نبودم چطور قراره کد بزنم، نشد تست بنویسم وگرنه امکان نداره بدون تست بنویسم و روی نرو خودم هست این قضیه)
+- می‌تونه سیستم در حال رزرو داشته باشه که در اون صورت می‌شه با یه تیبل دیگه هندل کرد
+- یه کاری که می‌شد کرد این بود که به محض ایجاد مسابقه که در اون استادیومش مشخص می‌شه، تیکت‌ها رو بسازیم و حتی رزروینگ بودنشون رو توی اون هندل کنیم!
+- دلیل وجود دو قیمت توی مدل‌ها به علت این هست که ممکنه قیمت بلیط دیفالت داشته باشه و اگه هم دیفالت داشته باشه هم صندلی قیمت جدا داشته باشه در واقع قیمت صندلی نشون داده می‌شه و حساب می‌شه ولی این پیاده‌سازی نشده هنوز
+- متن خروجی‌ها باید توی یه کلاس باشن و مثلا internal error  نباید همه‌جا هاردکد باشه
 
 
-The volleyball Federation decided to use an online selling platform for the next season, and our company has been chosen for implementing that.
 
-# Requirements
 
-Our system should have REST APIs for the following tasks:
-
-- User signup and login
-- Adding a new stadium
-- Defining matches
-- Defining the place of seats for each match
-- Buying seats of a match (There is no need for using a payment gateway)
-
-# Implementation details
-
-We don't need a GUI for this system. You can use the Django admin.
-Try to write your code as **reusable** and **readable** as possible. Also, don't forget to **document your code** and clear the reasons for all your decisions in the code.
-Using API documentation tools is a plus.
-Don't forget that many people trying to buy tickets for a match. So try to implement your code in a way that could handle the load. If your solution is not sample enough for implementing fast, you can just describe it in your documents.
-
-Please fork this repository and add your code to that. Don't forget that your commits are so important. So be sure that you're committing your code often with a proper commit message.

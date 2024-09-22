@@ -26,20 +26,19 @@ class TicketLogic:
         match = self.match_dao.get_match_by_id(match_id=match_id)
         if not match:
             raise MatchIdNotFoundException("wrong match id")
-        if len(seat_codes)==self.seat_dao.seat_codes_count_exist_in_stadium(seat_codes, match.stadium):
+        seats = self.seat_dao.seats_exist_in_stadium(seat_codes, match.stadium)
+        if len(seat_codes)!=len(seats):
             raise AtLeastOneOfSeatsCodeNotRightException("wrong seat code")
         with transaction.atomic():
             if self.ticket_dao.is_at_least_one_seat_occupied(seat_codes, match_id):
                 raise ThereIsOccupiedSeatException("at least one of seats occupied")
             else:
                 tickets = [
-                    Ticket(user=user, match_id=match_id, seat_code=seat_code)
-                    for seat_code in seat_codes]
-                tickets = self.ticket_dao.create_bulk_tickets(tickets)
+                    Ticket(user=user, match_id=match_id, seat=seat)
+                    for seat in seats]
+                self.ticket_dao.create_bulk_tickets(tickets)
                 result = self.ticket_adapter.pay_ticket()
-                if result:
-                    return tickets
-                else:
+                if not result:
                     self.ticket_dao.get_back_tickets(match_id, seat_codes)
                     raise TicketsNotPaidException("paid was unsuccessful")
         ticket_codes = [f"{seat_code}{match_id}" for seat_code in seat_codes]

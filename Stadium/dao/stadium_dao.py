@@ -17,3 +17,6 @@ class StadiumDao:
     def get_all_stadiums(self):
         stadiums = Stadium.objects.all()
         return stadiums
+    def get_stadium_by_id(self,stadium_id):
+        stadium = Stadium.objects.filter(id=stadium_id).first()
+        return stadium

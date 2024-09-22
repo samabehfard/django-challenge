@@ -13,6 +13,7 @@ class MatchCreationSerializer(serializers.Serializer):
     date = serializers.DateField()
     time = serializers.TimeField()
     default_price = serializers.IntegerField()
+    stadium_id = serializers.IntegerField()
 
 
 class MatchGetSerializer(serializers.Serializer):

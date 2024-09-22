@@ -53,6 +53,6 @@ class SignUpView(APIView):
         except DuplicateUserNameException:
             return Response("duplicate username", status=status.HTTP_409_CONFLICT)
 
-        except:
+        except Exception as error:
             return Response("internal error", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

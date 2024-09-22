@@ -5,7 +5,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from common.common_serializer import CommonSerializer
+from match.errors import MatchIdNotFoundException
 from ticket.api.serializer.ticket_serializer import SeatReservationSerializer, TicketCodeSerializer
+from ticket.errors import ThereIsOccupiedSeatException
 from ticket.logic.ticket_logic import TicketLogic
 
 
@@ -44,6 +46,11 @@ class TicketListView(APIView):
                 return Response({"detail": "Internal Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
             return Response(serializer.data, status=status.HTTP_200_OK)
+        except MatchIdNotFoundException:
+            return Response({'detail': ' match not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        except ThereIsOccupiedSeatException:
+            return Response({'detail': 'occupied already'}, status=status.HTTP_409_CONFLICT)
         except Exception as error:
             # error.args[0] should be log
             return Response({'detail': 'Internal Error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

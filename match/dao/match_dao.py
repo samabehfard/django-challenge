@@ -9,6 +9,7 @@ class MatchDao:
             date,
             time,
             default_price,
+            stadium
     ):
         Match.objects.create(
             home_matches=home_matches,
@@ -16,6 +17,7 @@ class MatchDao:
             date=date,
             time=time,
             default_price=default_price,
+            stadium=stadium
         )
 
     def get_all_matches(self):
